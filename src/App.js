@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Signup from "./components/Auth/Signup";
+import Login from "./components/Auth/Login";
+import TodoList from "./components/Todo/TodoList";
+import Profile from "./components/Profile/Profile";
 
-function App() {
+const App = () => {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!token ? (
+        <>
+          <Signup />
+          <Login />
+        </>
+      ) : (
+        <>
+          <Profile token={token} />
+          <TodoList token={token} />
+        </>
+      )}
     </div>
   );
-}
+};
 
 export default App;
